@@ -1,6 +1,6 @@
-[submodule "src/fastapi_relayer_sdr"]
-	path = src/fastapi_relayer_sdr
-	url = https://github.com/Khyst/fastapi_relayer_sdr
+[submodule "src/data-bridge"]
+	path = src/data-bridge
+	url = https://github.com/Khyst/data-bridge
 [submodule "src/sdr_frontend"]
 	path = src/sdr_frontend
 	url = https://github.com/Khyst/sdr_frontend
