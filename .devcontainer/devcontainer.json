@@ -1,60 +1,61 @@
 {
     "name": "ROS 2 Development Container",
 
-		 "privileged": true, // Container가 HOST의 리소스에 접근할 수 있도록 허용
-		    
-         "remoteUser": "${env:USERNAME}", // 컨테이너 내부에서 사용할 사용자 이름을 호스트의 환경 변수에서 가져옴
+		"privileged": true, // Container가 HOST의 리소스에 접근할 수 있도록 허용
+		
+		"remoteUser": "rastech", // 컨테이너 내부에서 사용할 사용자 이름을 호스트의 환경 변수에서 가져옴
 
-		    "build": { // 컨테이너 이미지를 빌드하기 위한 설정
-		        "dockerfile": "Dockerfile",
-		        "args": {
-		            "USERNAME": "${env:USERNAME}"
-		        }
-		    },
-
-
-            // (Updated! 26.02.14) 사용자의 홈 디렉토리 안에 workspace라는 폴더를 만드는 방식
-            "workspaceFolder": "/home/${env:USERNAME}/workspace",
-            "workspaceMount": "source=${localWorkspaceFolder},target=/home/${env:USERNAME}/workspace,type=bind",
-            
-            "customizations": {
-		        "vscode": {
-		            "extensions":[
-		                "ms-vscode.cpptools",
-		                "ms-vscode.cpptools-themes",
-		                "twxs.cmake",
-		                "donjayamanne.python-extension-pack",
-		                "eamodio.gitlens",
-		                "ms-iot.vscode-ros"
-		            ]
-		        }
-		    },
-		    
-            
-            "containerEnv": {
-		        "DISPLAY": "unix:0", // X11 디스플레이 설정
-		        "ROS_LOCALHOST_ONLY": "1", // ROS 2 노드가 localhost에서만 통신하도록 설정
-		        "ROS_DOMAIN_ID": "42" // ROS 2 네트워크 도메인 ID 설정 (필요에 따라 변경)
-		    },
-		    
-            
-            // 컨테이너 실행 시 추가로 전달할 Docker 런타임 인자 설정
-            "runArgs": [
-		        "--net=host",
-		        "--pid=host",
-		        "--ipc=host",
-		        "-e", "DISPLAY=${env:DISPLAY}"
-		    ],
+		"build": { // 컨테이너 이미지를 빌드하기 위한 설정
+			"dockerfile": "Dockerfile",
+			"args": {
+				"USERNAME": "rastech"
+			}
+		},
 
 
-            // 'X11 소켓'과 'GPU 디바이스'를 컨테이너에 '바인드 마운트'하여 'GUI 애플리케이션'과 'GPU 가속을 지원'하는 설정
-		    "mounts": [
-		       "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
-		       "source=/dev/dri,target=/dev/dri,type=bind,consistency=cached"
-		    ],
+		// (Updated! 26.02.14) 사용자의 홈 디렉토리 안에 workspace라는 폴더를 만드는 방식
+		"workspaceFolder": "/home/rastech/workspace",
+		"workspaceMount": "source=${localWorkspaceFolder},target=/home/rastech/workspace,type=bind",
+		
+		"customizations": {
+			"vscode": {
+				"extensions":[
+					"ms-vscode.cpptools",
+					"ms-vscode.cpptools-themes",
+					"twxs.cmake",
+					"donjayamanne.python-extension-pack",
+					"eamodio.gitlens",
+					"ms-iot.vscode-ros"
+				]
+			}
+		},
+		
+		
+		"containerEnv": {
+			"USERNAME": "rastech",
+			"DISPLAY": "unix:0", // X11 디스플레이 설정
+			"ROS_LOCALHOST_ONLY": "1", // ROS 2 노드가 localhost에서만 통신하도록 설정
+			"ROS_DOMAIN_ID": "42" // ROS 2 네트워크 도메인 ID 설정 (필요에 따라 변경)
+		},
+
+		
+		// 컨테이너 실행 시 추가로 전달할 Docker 런타임 인자 설정
+		"runArgs": [
+			"--net=host",
+			"--pid=host",
+			"--ipc=host",
+			"-e", "DISPLAY=${env:DISPLAY}"
+		],
 
 
-            // 컨테이너가 시작된 후 실행할 명령어로, ROS 2 의존성 설치와 작업 공간 권한 설정을 포함
-		    // (Updated! 26.02.14) 컨테이너가 시작된 후 ROS 2를 포함한 각종 의존성 설치와 작업 공간 권한 설정을 포함하는 shell로 관리 및 실행하도록 변경
-            "postCreateCommand": "bash .devcontainer/initial_setup.sh"
+		// 'X11 소켓'과 'GPU 디바이스'를 컨테이너에 '바인드 마운트'하여 'GUI 애플리케이션'과 'GPU 가속을 지원'하는 설정
+		"mounts": [
+			"source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
+			"source=/dev/dri,target=/dev/dri,type=bind,consistency=cached"
+		],
+
+
+		// 컨테이너가 시작된 후 실행할 명령어로, ROS 2 의존성 설치와 작업 공간 권한 설정을 포함
+		// (Updated! 26.02.14) 컨테이너가 시작된 후 ROS 2를 포함한 각종 의존성 설치와 작업 공간 권한 설정을 포함하는 shell로 관리 및 실행하도록 변경
+		"postCreateCommand": "bash .devcontainer/initial_setup.sh"
 }
