@@ -51,7 +51,7 @@
 		// 'X11 소켓'과 'GPU 디바이스'를 컨테이너에 '바인드 마운트'하여 'GUI 애플리케이션'과 'GPU 가속을 지원'하는 설정
 		"mounts": [
 			"source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
-			"source=/dev/dri,target=/dev/dri,type=bind,consistency=cached"
+			// "source=/dev/dri,target=/dev/dri,type=bind,consistency=cached"
 		],
 
 
