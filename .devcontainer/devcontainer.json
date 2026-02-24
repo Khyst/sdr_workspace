@@ -34,7 +34,7 @@
 		"containerEnv": {
 			"USERNAME": "rastech",
 			"DISPLAY": "unix:0", // X11 디스플레이 설정
-			"ROS_LOCALHOST_ONLY": "1", // ROS 2 노드가 localhost에서만 통신하도록 설정
+			"ROS_LOCALHOST_ONLY": "0", // 호스트와 컨테이너 간 topic 공유 활성화
 			"ROS_DOMAIN_ID": "42" // ROS 2 네트워크 도메인 ID 설정 (필요에 따라 변경)
 		},
 
